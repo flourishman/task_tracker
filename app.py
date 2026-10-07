@@ -43,6 +43,8 @@ def add_task():
         conn.commit()
         conn.close()
 
+    return redirect(url_for("home"))
+
 @app.route("/delete/<int:task_id>", methods=["POST"])
 def delete_task(task_id):
     # Connect to database and delete the task matching this ID
