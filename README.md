@@ -10,7 +10,9 @@ Create a GitHub repository for the project and push the app files. Keep `.env`, 
 
 ### 2. Create the Render service
 
-In Render, choose **New +** > **Blueprint**, connect the GitHub repository, and select this project. Render reads `render.yaml` and creates the web service. The service runs with Gunicorn and checks `/health`.
+In Render, choose **New +** > **Blueprint**, connect the GitHub repository, and select this project. Render reads `render.yaml` and creates the web service. It installs dependencies from `requirements.txt`, starts the app with `python -m gunicorn app:app`, and checks `/health`.
+
+If Render reports `Gunicorn: command not found`, make sure the latest commit containing `requirements.txt` and `render.yaml` has been pushed and deployed. In the Render service settings, the **Build Command** should be `python -m pip install -r requirements.txt` and the **Start Command** should be `python -m gunicorn app:app` (all lowercase). Then trigger **Manual Deploy** > **Deploy latest commit**. Do not enter `Gunicorn` with a capital G.
 
 ### 3. Set the database connection string
 
