@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create account</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h1>Create account</h1>
+            <p class="auth-subtitle">Start planning your day</p>
+
+            {% if error %}
+                <p class="auth-error">{{ error }}</p>
+            {% endif %}
+
+            <button type="button" class="theme-toggle auth-theme-toggle" aria-label="Toggle dark mode">☀️</button>
+
+            <form method="POST" class="auth-form">
+                <div class="field">
+                    <label for="username">Username</label>
+                    <input id="username" type="text" name="username" placeholder="Choose a username" autocomplete="username" required>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <div class="password-field">
+                        <input id="password" type="password" name="password" placeholder="Create a password (at least 6 characters)" autocomplete="new-password" required>
+                        <button type="button" class="password-toggle" data-target="password" aria-label="Toggle password visibility">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" class="eye-icon">
+                                <path d="M1.5 12S5.25 5 12 5s10.5 7 10.5 7-3.75 7-10.5 7S1.5 12 1.5 12Zm10.5 3.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z" fill="currentColor" fill-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-add auth-button">Register</button>
+            </form>
+
+            <p class="auth-link">
+                Already have an account? <a href="{{ url_for('login') }}">Login</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const body = document.body;
+        const themeToggle = document.querySelector('.auth-theme-toggle');
+        const savedMode = localStorage.getItem('planner-theme');
+
+        if (savedMode === 'dark') {
+            body.classList.add('dark-mode');
+            if (themeToggle) themeToggle.textContent = '🌙';
+        }
+
+        themeToggle?.addEventListener('click', () => {
+            const isDark = body.classList.toggle('dark-mode');
+            localStorage.setItem('planner-theme', isDark ? 'dark' : 'light');
+            themeToggle.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        document.querySelectorAll('.password-toggle').forEach((button) => {
+            button.addEventListener('click', () => {
+                const target = document.getElementById(button.dataset.target);
+                const isPassword = target.type === 'password';
+                target.type = isPassword ? 'text' : 'password';
+                button.classList.toggle('visible', isPassword);
+                button.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+            });
+        });
+    </script>
+</body>
+</html>
