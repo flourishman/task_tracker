@@ -212,6 +212,32 @@ input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px 
 .auth-error { border: 1px solid rgba(220, 76, 76, .2); color: var(--danger); background: var(--danger-soft); }
 .auth-success { border: 1px solid rgba(22, 138, 104, .18); color: var(--success); background: rgba(22, 138, 104, .08); }
 
+body.auth-page {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.auth-page .auth-container {
+    margin: auto;
+}
+
+.auth-page .auth-card {
+    padding: 24px;
+}
+
+.auth-page .auth-form {
+    gap: 12px;
+}
+
+.auth-page .auth-link {
+    margin-top: 12px;
+}
+
 @media (max-width: 920px) {
     .app-shell { grid-template-columns: 1fr; }
     .sidebar { position: static; width: auto; height: auto; min-height: 0; overflow: visible; flex-direction: row; align-items: center; gap: 16px; padding: 8px 12px; }
@@ -226,6 +252,16 @@ input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px 
 
 @media (max-width: 620px) {
     body { padding: 14px 10px; }
+    body.auth-page { padding: 12px; }
+    .auth-page .auth-container { width: 100%; }
+    .auth-page .auth-card { padding: 20px 18px; }
+    .auth-page .auth-card h1 { font-size: 25px; }
+    .auth-page .auth-subtitle { margin-bottom: 12px; font-size: 13px; }
+    .auth-page .auth-form { gap: 10px; }
+    .auth-page .field { gap: 4px; }
+    .auth-page input[type="text"], .auth-page input[type="password"] { padding-top: 9px; padding-bottom: 9px; }
+    .auth-page .password-toggle { width: 34px; height: 34px; }
+    .auth-page .auth-link { margin-top: 8px; font-size: 13px; }
     .main-panel { padding: 15px; }
     .welcome-bar { top: 8px; align-items: flex-start; flex-direction: column; }
     .sidebar { align-items: stretch; flex-direction: column; gap: 4px; padding: 10px; }
@@ -243,4 +279,9 @@ input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px 
     .task-meta { width: 100%; justify-content: space-between; }
     .task-actions { gap: 6px; }
     .btn-add { width: 100%; }
+}
+
+@media (max-height: 620px) {
+    .auth-page { align-items: flex-start; }
+    .auth-page .auth-container { margin: auto; }
 }
